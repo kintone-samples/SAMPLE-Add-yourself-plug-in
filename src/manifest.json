@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "version": 1,
+  "version": "1.1.4",
   "type": "APP",
   "desktop": {
     "js": [
@@ -32,6 +32,6 @@
     "en": "This sample plug-in adds yourself to a User Selection field with the click of a button in the record details page."
   },
   "homepage_url": {
-    "en": "https://developer.kintone.io/hc/en-us/articles/360012298494"
+    "en": "https://kintone.dev/en/plugins/simple-samples/add-yourself-plug-in/"
   }
 }

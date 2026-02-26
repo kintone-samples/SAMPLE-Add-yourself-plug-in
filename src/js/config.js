@@ -49,26 +49,32 @@ jQuery.noConflict();
     return kintone.app.getFormLayout().then((resp) => {
       const $spaceDropDown = $space;
       resp.forEach((layout) => {
-        if (layout.type === 'ROW')
-        {
-          const fields = layout.fields;
-          fields.forEach((field) => {
-            const $option = $('<option></option>');
-            switch (field.type) {
-              // Only pick Space fields
-              case 'SPACER':
-                if (!field.elementId) {
-                  break;
-                }
-                $option.attr('value', field.elementId);
-                $option.text(field.elementId);
-                $spaceDropDown.append($option.clone());
-                break;
-              default:
-                  break;
+        let fields = [];
+        if (layout.type === 'ROW') {
+          fields = layout.fields;
+        } else if (layout.type === 'GROUP') {
+          layout.layout.forEach((row)=>{
+            if (row.type === 'ROW') {
+              fields = row.fields;
             }
           });
-        };
+        }
+        fields.forEach((field) => {
+          const $option = $('<option></option>');
+          switch (field.type) {
+            // Only pick Space fields
+            case 'SPACER':
+              if (!field.elementId) {
+                break;
+              }
+              $option.attr('value', field.elementId);
+              $option.text(field.elementId);
+              $spaceDropDown.append($option.clone());
+              break;
+            default:
+                break;
+          }
+        });
       });
       // Set default value
       if (CONF.space) {
